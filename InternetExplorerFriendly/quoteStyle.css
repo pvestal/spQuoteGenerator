@@ -1,0 +1,23 @@
+.ms-core-pageTitle {
+    display: none;
+}
+
+.quoteP {
+    background-color: dodgerblue;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.quote {
+    margin: 25px;
+    font-size: 200%;
+}
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}
