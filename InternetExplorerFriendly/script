@@ -1,1 +1,34 @@
+//This loads the first custom script after SP loads internal scripts
+_spBodyOnLoadFunctionNames.push("getAllQuotes");
 
+var quoteArray = [];
+
+function getFriendlyQuote() {
+    //console.log(quoteArray);
+    var randomMsg = quoteArray[Math.floor(Math.random() * quoteArray.length)];
+    document.getElementsByClassName("quote")[0].innerHTML = randomMsg;
+
+}
+
+//This gets All the quotes from the SP list.
+function getAllQuotes() {
+    var list = "('Quotes')/Items/?$select=Title&$top=1000";
+    var call = $.ajax({
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle" + list,
+        method: "GET",
+        headers: {
+            "Accept": "application/json; odata=verbose"
+        }
+    });
+    call.done(function (data) {
+        var items = data.d.results;
+        $.each(items, function(index, item) {
+            quoteArray.push(item.Title);
+        });
+        console.log(quoteArray.length);
+    });
+    call.fail(function errhandler(jqXHR, textStatus, errorThrown) {
+        alert("Error please see console log.");
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+}
